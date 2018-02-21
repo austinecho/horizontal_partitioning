@@ -1,0 +1,142 @@
+**** DB01  ****
+
+** DocumentManagementReport.Image **
+Date Column: CreateDate
+Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
+
+-- Current --
+
+- PK
+	PK_Image
+	
+- FK
+	FK_Image_Load
+	FK_Image_SourceFile
+	
+- Index
+	IX_Image_UploadId
+	
+- Constraint
+	N/A
+
+-- New --
+- PK
+	PK_DocumentManagementReport_Image_ImageId_CreateDate
+	
+- FK
+	FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID
+	FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId
+	
+- Index
+	IX_DocumentManagementReport_Image_UploadId_Incl
+	
+- Constraint
+	N/A
+
+** dbo.FastLaneDocs **
+Date Column: SubmittedDate?
+Clustered Index: CIX_FastLaneDocs_SubmittedDate
+
+-- Current --
+
+- PK
+	PK_FastLaneDocs
+
+- FK
+	N/A
+	
+- Index
+	N/A
+	
+- Constraint
+	DF__FastLaneD__RecSt__7FB5F314
+	DF__FastLaneD__Statu__7EC1CEDB
+	DF__FastLaneD__Submi__7DCDAAA2
+
+-- New --
+- PK
+	PK_FastLaneDocs_FastLaneDocId_SubmittedDate
+	
+- FK
+	N/A
+	
+- Index
+	N/A
+	
+- Constraint
+	DF_FastLaneDocs_SubmittedDate
+	DF_FastLaneDocs_StatusCode
+	DF_FastLaneDocs_RecStatus
+
+--====================================================================================================================
+--====================================================================================================================
+
+**** DataTeam4 ****
+
+** DocumentManagementReport.Image **
+Date Column: CreateDate
+Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
+
+-- Current --
+
+- PK
+	PK_Image
+	
+- FK
+	FK_Image_Load
+	FK_Image_SourceFile
+	
+- Index
+	IX_Image_UploadId
+	
+- Constraint
+	N/A
+
+-- New --
+- PK
+	PK_DocumentManagementReport_Image_ImageId_CreateDate
+	
+- FK
+	FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID
+	FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId
+	
+- Index
+	IX_DocumentManagementReport_Image_UploadId_Incl
+	
+- Constraint
+	N/A
+
+** dbo.FastLaneDocs **
+Date Column: SubmittedDate?
+Clustered Index: CIX_FastLaneDocs_SubmittedDate
+
+-- Current --
+
+- PK
+	PK_FastLaneDocs
+
+- FK
+	N/A
+	
+- Index
+	N/A
+	
+- Constraint
+	DF__FastLaneD__RecSt__182C9B23
+	DF__FastLaneD__Statu__173876EA
+	DF__FastLaneD__Submi__164452B1
+
+-- New --
+- PK
+	PK_FastLaneDocs_FastLaneDocId_SubmittedDate
+	
+- FK
+	N/A
+	
+- Index
+	N/A
+	
+- Constraint
+	DF_FastLaneDocs_SubmittedDate
+	DF_FastLaneDocs_StatusCode
+	DF_FastLaneDocs_RecStatus
