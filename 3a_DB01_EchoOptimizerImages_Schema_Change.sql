@@ -124,6 +124,58 @@ IF EXISTS (   SELECT 1
         PRINT '- PK [PK_FastLaneDocs] Dropped';
 	END;
 
+
+--===================================================================================================
+--[REMOVE ALL DFs]
+--===================================================================================================
+PRINT '***************************';
+PRINT '*** Remove DF ***';
+PRINT '***************************';
+
+--************************************************
+PRINT 'Working on table [dbo].[FastLaneDocs] ...';
+
+IF EXISTS ( SELECT  1
+            FROM    sys.objects
+            WHERE   parent_object_id = OBJECT_ID(N'dbo.FastLaneDocs')
+                    AND type_desc = 'DEFAULT_CONSTRAINT'
+                    AND name LIKE 'DF__FastLaneD%' )
+    BEGIN
+        IF (SELECT @@SERVERNAME) = 'DB01VPRD'
+            BEGIN 
+                ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__RecSt__7FB5F314;
+                PRINT '- DF [DF__FastLaneD__RecSt__7FB5F314] Dropped';
+
+				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Statu__7EC1CEDB;
+                PRINT '- DF [DF__FastLaneD__Statu__7EC1CEDB] Dropped';
+
+				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__7DCDAAA2;
+                PRINT '- DF [DF__FastLaneD__Submi__7DCDAAA2] Dropped';
+            END;
+		ELSE IF (SELECT @@SERVERNAME) = 'QA'
+            BEGIN 
+                ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__164452B1;
+                PRINT '- DF [DF__FastLaneD__Submi__164452B1] Dropped';
+
+				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__164452B1;
+                PRINT '- DF [DF__FastLaneD__Submi__164452B1] Dropped';
+
+				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__164452B1;
+                PRINT '- DF [DF__FastLaneD__Submi__164452B1] Dropped';
+            END;
+		ELSE IF (SELECT @@SERVERNAME) = 'DATATEAM4-DB01\DB01'
+            BEGIN 
+                ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__RecSt__182C9B23;
+                PRINT '- DF [DF__FastLaneD__RecSt__182C9B23] Dropped';
+
+				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Statu__173876EA;
+                PRINT '- DF [DF__FastLaneD__Statu__173876EA] Dropped';
+
+				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__164452B1;
+                PRINT '- DF [DF__FastLaneD__Submi__164452B1] Dropped';
+            END;                                    
+    END;         
+
 --===================================================================================================
 --[CREATE CLUSTERED INDEX]
 --===================================================================================================
@@ -201,6 +253,36 @@ PRINT '- PK [PK_FastLaneDocs_FastLaneDocId_SubmittedDate] Created';
 --===================================================================================================
 PRINT '*****************';
 PRINT '*** Create FK ***';
+PRINT '*****************';
+
+--*****************************************************
+PRINT 'Working on table [DocumentManagementReport].[Image] ...';
+
+ALTER TABLE DocumentManagementReport.Image WITH NOCHECK
+ADD CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID
+    FOREIGN KEY ( LoadId )
+    REFERENCES DocumentManagementReport.Load ( LoadId ) ON DELETE CASCADE;
+PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID] Created';
+
+ALTER TABLE DocumentManagementReport.Image CHECK CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID;
+PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID] Enabled';
+GO
+
+ALTER TABLE DocumentManagementReport.Image WITH NOCHECK
+ADD CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId
+    FOREIGN KEY ( SourceFileId )
+    REFERENCES DocumentManagementReport.SourceFile ( LoadId ) ON DELETE CASCADE;
+PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId] Created';
+
+ALTER TABLE DocumentManagementReport.Image CHECK CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId;
+PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId] Enabled';
+GO
+
+--===================================================================================================
+--[CREATE DF]
+--===================================================================================================
+PRINT '*****************';
+PRINT '*** Create DF ***';
 PRINT '*****************';
 
 --*****************************************************
