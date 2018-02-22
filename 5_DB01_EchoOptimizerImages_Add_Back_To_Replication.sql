@@ -1,49 +1,49 @@
 /*
 DataTeam
-Claims Partitioning
+EchoOptimizerImages Partitioning
 
 Add table back to replication
 
 Run in DB01VPRD Equivilant 
 */
-USE Claims
+USE EchoOptimizerImages
 GO
 
 -- Pause Replication
-EXEC sys.sp_changepublication @publication = 'PublicationClaims', @property = 'allow_anonymous', @value = 'false';
-EXEC sys.sp_changepublication @publication = 'PublicationClaims', @property = 'immediate_sync', @value = 'false';
+EXEC sys.sp_changepublication @publication = 'PublicationEchoOptImages', @property = 'allow_anonymous', @value = 'false';
+EXEC sys.sp_changepublication @publication = 'PublicationEchoOptImages', @property = 'immediate_sync', @value = 'false';
 
 -- Make sure the DDL changes are carried over
-EXEC sys.sp_changepublication @publication = 'PublicationClaims', @property = 'replicate_ddl', @value = '1';
+EXEC sys.sp_changepublication @publication = 'PublicationEchoOptImages', @property = 'replicate_ddl', @value = '1';
 GO
 
 /*****   Run script to re-add affected article(s) back to replication.   ************/
-EXEC sys.sp_addarticle @publication = N'PublicationClaims'
-                     , @article = N'AuditRecords'
-                     , @source_owner = N'dbo'
-                     , @source_object = N'AuditRecords'
+EXEC sys.sp_addarticle @publication = N'PublicationEchoOptImages'
+                     , @article = N'Image'
+                     , @source_owner = N'DocumentManagementReport'
+                     , @source_object = N'Image'
                      , @type = N'logbased'
                      , @description = N''
                      , @creation_script = N''
                      , @pre_creation_cmd = N'truncate'
                      , @schema_option = 0x000000000803509F
                      , @identityrangemanagementoption = N'manual'
-                     , @destination_table = N'AuditRecords'
-                     , @destination_owner = N'dbo'
+                     , @destination_table = N'Image'
+                     , @destination_owner = N'DocumentManagementReport'
                      , @status = 24
                      , @vertical_partition = N'false';
 
-EXEC sys.sp_addarticle @publication = N'PublicationClaims'
-                     , @article = N'AuditRecordFields'
+EXEC sys.sp_addarticle @publication = N'PublicationEchoOptImages'
+                     , @article = N'FastLaneDocs'
                      , @source_owner = N'dbo'
-                     , @source_object = N'AuditRecordFields'
+                     , @source_object = N'FastLaneDocs'
                      , @type = N'logbased'
                      , @description = N''
                      , @creation_script = N''
                      , @pre_creation_cmd = N'truncate'
                      , @schema_option = 0x000000000803509F
                      , @identityrangemanagementoption = N'manual'
-                     , @destination_table = N'AuditRecordFields'
+                     , @destination_table = N'FastLaneDocs'
                      , @destination_owner = N'dbo'
                      , @status = 24
                      , @vertical_partition = N'false';
@@ -51,8 +51,8 @@ GO
 
 /*****   Run script to re-add affected subscriptions back to replication.   ************/
 
-EXEC sp_addSubscription @publication ='PublicationClaims',@subscriber = 'QA2-DB02.qa.echogl.net',@destination_db='Claims',@reserved='Internal',@article='AuditRecords',@sync_type='automatic'
-EXEC sp_addSubscription @publication ='PublicationClaims',@subscriber = 'QA2-DB02.qa.echogl.net',@destination_db='Claims',@reserved='Internal',@article='AuditRecordFields',@sync_type='automatic'
+EXEC sp_addSubscription @publication ='PublicationEchoOptImages',@subscriber = 'QA2-DB02.qa.echogl.net',@destination_db='EchoOptimizerImages',@reserved='Internal',@article='DocumentManagementReport.Image',@sync_type='automatic'
+EXEC sp_addSubscription @publication ='PublicationEchoOptImages',@subscriber = 'QA2-DB02.qa.echogl.net',@destination_db='EchoOptimizerImages',@reserved='Internal',@article='dbo.FastLaneDocs',@sync_type='automatic'
 GO
 
 
@@ -72,7 +72,7 @@ GO
 -- ===================================================================================================
 --
 -- If Server doesn't have SSMS, you can also start snapshot agent by running script below:
-EXECUTE sys.sp_startpublication_snapshot @publication = 'PublicationClaims';
+EXECUTE sys.sp_startpublication_snapshot @publication = 'PublicationEchoOptImages';
 --
 -- Check Run Status of Snapshot:
 -- If [runstatus] = 2 and [comments] starts with [100%] then snapshot job is done
@@ -83,7 +83,7 @@ SELECT     TOP ( 20 ) a.runstatus, a.start_time, a.time, a.duration, a.comments
 FROM       distribution.dbo.MSsnapshot_history AS a
 INNER JOIN distribution.dbo.MSsnapshot_agents AS b
         ON b.id = a.agent_id
-WHERE      b.publisher_db = 'Claims'
+WHERE      b.publisher_db = 'EchoOptimizerImages'
 ORDER BY   a.time DESC;
 
 -- Snapshot Done
@@ -94,10 +94,10 @@ ORDER BY   a.time DESC;
 USE Claims
 GO
 
-EXEC sys.sp_changepublication @publication = 'PublicationClaims', @property = 'immediate_sync', @value = 'true';
-EXEC sys.sp_changepublication @publication = 'PublicationClaims', @property = 'allow_anonymous', @value = 'true';
+EXEC sys.sp_changepublication @publication = 'PublicationEchoOptImages', @property = 'immediate_sync', @value = 'true';
+EXEC sys.sp_changepublication @publication = 'PublicationEchoOptImages', @property = 'allow_anonymous', @value = 'true';
 
 -- Make sure the DDL changes are NOT carried over any more
-EXEC sys.sp_changepublication @publication = 'PublicationClaims', @property = 'replicate_ddl', @value = '0';
+EXEC sys.sp_changepublication @publication = 'PublicationEchoOptImages', @property = 'replicate_ddl', @value = '0';
 GO
 
