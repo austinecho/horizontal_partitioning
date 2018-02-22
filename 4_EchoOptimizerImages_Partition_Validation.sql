@@ -1,12 +1,12 @@
 /*
 DataTeam
-Claims Partitioning
+EchoOptimizerImages Partitioning
 
 Validation
 
 Run in DB01VPRD Equivilant 
 */
-USE Claims
+USE EchoOptimizerImages
 GO
 
 -- View Partitioned Table Information (Advanced) 
