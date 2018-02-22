@@ -279,34 +279,23 @@ PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFi
 GO
 
 --===================================================================================================
---[CREATE DF]
+--[CREATE DFs]
 --===================================================================================================
 PRINT '*****************';
 PRINT '*** Create DF ***';
 PRINT '*****************';
 
 --*****************************************************
-PRINT 'Working on table [DocumentManagementReport].[Image] ...';
+PRINT 'Working on table [dbo].[FastLaneDocs] ...';
 
-ALTER TABLE DocumentManagementReport.Image WITH NOCHECK
-ADD CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID
-    FOREIGN KEY ( LoadId )
-    REFERENCES DocumentManagementReport.Load ( LoadId ) ON DELETE CASCADE;
-PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID] Created';
+ALTER TABLE dbo.FastLaneDocs ADD CONSTRAINT DF_FastLaneDocs_SubmittedDate DEFAULT GETDATE() FOR SubmittedDate;
+PRINT '- DF [DF_FastLaneDocs_SubmittedDate] Added';
 
-ALTER TABLE DocumentManagementReport.Image CHECK CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID;
-PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID] Enabled';
-GO
+ALTER TABLE dbo.FastLaneDocs ADD CONSTRAINT DF_FastLaneDocs_StatusCode DEFAULT 0 FOR StatusCode;
+PRINT '- DF [DF_FastLaneDocs_StatusCode] Dropped';
 
-ALTER TABLE DocumentManagementReport.Image WITH NOCHECK
-ADD CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId
-    FOREIGN KEY ( SourceFileId )
-    REFERENCES DocumentManagementReport.SourceFile ( LoadId ) ON DELETE CASCADE;
-PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId] Created';
-
-ALTER TABLE DocumentManagementReport.Image CHECK CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId;
-PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId] Enabled';
-GO
+ALTER TABLE dbo.FastLaneDocs ADD CONSTRAINT DF_FastLaneDocs_RecStatus DEFAULT 0 FOR RecStatus;
+PRINT '- DF [DF_FastLaneDocs_RecStatus] Dropped';
 
 --===================================================================================================
 --[UPDATE STATS]
