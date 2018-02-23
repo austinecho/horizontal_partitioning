@@ -140,3 +140,134 @@ Clustered Index: CIX_FastLaneDocs_SubmittedDate
 	DF_FastLaneDocs_SubmittedDate
 	DF_FastLaneDocs_StatusCode
 	DF_FastLaneDocs_RecStatus
+	
+**** DB02  ****
+
+** DocumentManagementReport.Image **
+Date Column: CreateDate
+Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
+
+-- Current --
+
+- PK
+	PK_Image
+	
+- FK
+	N/A
+	
+- Index
+	TestX_LoadID_cov
+	
+- Constraint
+	N/A
+
+-- New --
+- PK
+	PK_DocumentManagementReport_Image_ImageId_CreateDate
+	
+- FK
+	N/A
+	
+- Index
+	IX_DocumentManagementReport_Image_LoadId_DocumentName_DocumentTypeId_StartTimeInWorkspaceDate_UpdateDate
+	
+- Constraint
+	N/A
+
+** dbo.FastLaneDocs **
+Date Column: SubmittedDate?
+Clustered Index: CIX_FastLaneDocs_SubmittedDate
+
+-- Current --
+
+- PK
+	PK_FastLaneDocs
+
+- FK
+	N/A
+	
+- Index
+	N/A
+	
+- Constraint
+	N/A
+
+-- New --
+- PK
+	PK_FastLaneDocs_FastLaneDocId_SubmittedDate
+	
+- FK
+	N/A
+	
+- Index
+	N/A
+	
+- Constraint
+	N/A
+
+--====================================================================================================================
+--====================================================================================================================
+
+**** DataTeam4 ****
+
+** DocumentManagementReport.Image **
+Date Column: CreateDate
+Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
+
+-- Current --
+
+- PK
+	PK_Image
+	
+- FK
+	N/A
+	
+- Index
+	TestX_LoadID_cov
+	
+- Constraint
+	N/A
+
+-- New --
+- PK
+	PK_DocumentManagementReport_Image_ImageId_CreateDate
+	
+- FK
+	N/A
+	
+- Index
+	IX_DocumentManagementReport_Image_LoadId_DocumentName_DocumentTypeId_StartTimeInWorkspaceDate_UpdateDate
+	
+- Constraint
+	N/A
+
+** dbo.FastLaneDocs **
+Date Column: SubmittedDate?
+Clustered Index: CIX_FastLaneDocs_SubmittedDate
+
+-- Current --
+
+- PK
+	PK_FastLaneDocs
+
+- FK
+	N/A
+	
+- Index
+	N/A
+	
+- Constraint
+	N/A
+
+-- New --
+- PK
+	PK_FastLaneDocs_FastLaneDocId_SubmittedDate
+	
+- FK
+	N/A
+	
+- Index
+	N/A
+	
+- Constraint
+	N/A
