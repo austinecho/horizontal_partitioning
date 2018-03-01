@@ -1,7 +1,7 @@
 **** DB01  ****
 
 ** DocumentManagementReport.Image **
-Date Column: CreateDate
+Date Column: CreateDate (1 year)
 Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
 
 -- Current --
@@ -34,7 +34,7 @@ Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
 	N/A
 
 ** dbo.FastLaneDocs **
-Date Column: SubmittedDate?
+Date Column: SubmittedDate (2 years)
 Clustered Index: CIX_FastLaneDocs_SubmittedDate
 
 -- Current --
@@ -74,7 +74,7 @@ Clustered Index: CIX_FastLaneDocs_SubmittedDate
 **** DataTeam4 ****
 
 ** DocumentManagementReport.Image **
-Date Column: CreateDate
+Date Column: CreateDate (1 year)
 Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
 
 -- Current --
@@ -107,7 +107,7 @@ Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
 	N/A
 
 ** dbo.FastLaneDocs **
-Date Column: SubmittedDate?
+Date Column: SubmittedDate (2 years)
 Clustered Index: CIX_FastLaneDocs_SubmittedDate
 
 -- Current --
@@ -144,7 +144,7 @@ Clustered Index: CIX_FastLaneDocs_SubmittedDate
 **** DB02  ****
 
 ** DocumentManagementReport.Image **
-Date Column: CreateDate
+Date Column: CreateDate (1 year)
 Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
 
 -- Current --
@@ -175,7 +175,7 @@ Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
 	N/A
 
 ** dbo.FastLaneDocs **
-Date Column: SubmittedDate?
+Date Column: SubmittedDate (2 years)
 Clustered Index: CIX_FastLaneDocs_SubmittedDate
 
 -- Current --
@@ -211,7 +211,7 @@ Clustered Index: CIX_FastLaneDocs_SubmittedDate
 **** DataTeam4 ****
 
 ** DocumentManagementReport.Image **
-Date Column: CreateDate
+Date Column: CreateDate (1 year)
 Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
 
 -- Current --
@@ -242,7 +242,7 @@ Clustered Index: CIX_DocumentManagementReport_Image_CreateDate
 	N/A
 
 ** dbo.FastLaneDocs **
-Date Column: SubmittedDate?
+Date Column: SubmittedDate (2 years)
 Clustered Index: CIX_FastLaneDocs_SubmittedDate
 
 -- Current --
