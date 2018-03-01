@@ -194,7 +194,7 @@ END;
 
 CREATE CLUSTERED INDEX CIX_DocumentManagementReport_Image_CreateDate
 ON DocumentManagementReport.Image ( CreateDate ASC )
-WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_3Year(CreatedDate);
+WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_1Year(CreateDate);
 PRINT '- Index [CIX_DocumentManagementReport_Image_CreateDate] Created';
 
 --*****************************************************
@@ -208,7 +208,7 @@ END;
 
 CREATE CLUSTERED INDEX CIX_FastLaneDocs_SubmittedDate
 ON dbo.FastLaneDocs ( SubmittedDate ASC )
-WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_3Year(CreatedDate);
+WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_2Year(SubmittedDate);
 PRINT '- Index [CIX_FastLaneDocs_SubmittedDate] Created';
 
 --===================================================================================================
@@ -230,7 +230,7 @@ END;
 ALTER TABLE DocumentManagementReport.Image
 ADD CONSTRAINT PK_DocumentManagementReport_Image_ImageId_CreateDate
     PRIMARY KEY NONCLUSTERED ( ImageId, CreateDate )
-    WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_3Year(CreatedDate);
+    WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_1Year(CreateDate);
 PRINT '- PK [PK_DocumentManagementReport_Image_ImageId_CreateDate] Created';
 
 --*****************************************************
@@ -245,7 +245,7 @@ END;
 ALTER TABLE dbo.FastLaneDocs
 ADD CONSTRAINT PK_FastLaneDocs_FastLaneDocId_SubmittedDate
     PRIMARY KEY NONCLUSTERED ( FastLaneDocId, SubmittedDate )
-    WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_3Year(CreatedDate);
+    WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_2Year(SubmittedDate);
 PRINT '- PK [PK_FastLaneDocs_FastLaneDocId_SubmittedDate] Created';
 
 --===================================================================================================

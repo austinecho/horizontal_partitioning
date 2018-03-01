@@ -57,11 +57,23 @@ GO
 --===================================================================================================
 PRINT '*** ADD PARTITION FUNCTION ***';
 
-IF NOT EXISTS ( SELECT 1 FROM sys.partition_functions WHERE name = 'PF_EchoOptimizerImages_DATETIME_3Year' )
+IF NOT EXISTS ( SELECT 1 FROM sys.partition_functions WHERE name = 'PF_EchoOptimizerImages_DATETIME_2Year' )
 BEGIN
-    CREATE PARTITION FUNCTION PF_EchoOptimizerImages_DATETIME_3Year ( DATETIME ) AS RANGE RIGHT FOR VALUES ( '2015-01-01 00:00:00.000' ); --3YearsFromThisYear
+    CREATE PARTITION FUNCTION PF_EchoOptimizerImages_DATETIME_2Year ( DATETIME ) AS RANGE RIGHT FOR VALUES ( '2016-01-01 00:00:00.000' ); --2YearsFromThisYear
 
-    PRINT '- Partition Function [PF_EchoOptimizerImages_DATETIME_3Year] added';
+    PRINT '- Partition Function [PF_EchoOptimizerImages_DATETIME_2Year] added';
+END;
+ELSE
+BEGIN
+    PRINT '!! WARNING: Partition Function with same name already exists !!';
+END;
+GO
+
+IF NOT EXISTS ( SELECT 1 FROM sys.partition_functions WHERE name = 'PF_EchoOptimizerImages_DATETIME_1Year' )
+BEGIN
+    CREATE PARTITION FUNCTION PF_EchoOptimizerImages_DATETIME_1Year ( DATETIME ) AS RANGE RIGHT FOR VALUES ( '2017-01-01 00:00:00.000' ); --1YearsFromThisYear
+
+    PRINT '- Partition Function [PF_EchoOptimizerImages_DATETIME_1Year] added';
 END;
 ELSE
 BEGIN
@@ -74,11 +86,23 @@ GO
 --===================================================================================================
 PRINT '*** ADD PARTITION SCHEME ***';
 
-IF NOT EXISTS ( SELECT 1 FROM sys.partition_schemes WHERE name = 'PS_EchoOptimizerImages_DATETIME_3Year' )
+IF NOT EXISTS ( SELECT 1 FROM sys.partition_schemes WHERE name = 'PS_EchoOptimizerImages_DATETIME_2Year' )
 BEGIN
-    CREATE PARTITION SCHEME PS_EchoOptimizerImages_DATETIME_3Year AS PARTITION PF_EchoOptimizerImages_DATETIME_3Year TO ( EchoOptimizerImages_Archive, [PRIMARY] );
+    CREATE PARTITION SCHEME PS_EchoOptimizerImages_DATETIME_2Year AS PARTITION PF_EchoOptimizerImages_DATETIME_2Year TO ( EchoOptimizerImages_Archive, [PRIMARY] );
 
-	PRINT '- Partition Scheme [PS_EchoOptimizerImages_DATETIME_3Year] added';
+	PRINT '- Partition Scheme [PS_EchoOptimizerImages_DATETIME_2Year] added';
+END;
+ELSE
+BEGIN
+    PRINT '!! WARNING: Partition Scheme with same name already exists !!';
+END;
+GO
+
+IF NOT EXISTS ( SELECT 1 FROM sys.partition_schemes WHERE name = 'PS_EchoOptimizerImages_DATETIME_1Year' )
+BEGIN
+    CREATE PARTITION SCHEME PS_EchoOptimizerImages_DATETIME_1Year AS PARTITION PF_EchoOptimizerImages_DATETIME_1Year TO ( EchoOptimizerImages_Archive, [PRIMARY] );
+
+	PRINT '- Partition Scheme [PS_EchoOptimizerImages_DATETIME_1Year] added';
 END;
 ELSE
 BEGIN
