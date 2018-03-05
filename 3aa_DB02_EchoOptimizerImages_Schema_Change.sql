@@ -14,7 +14,7 @@ DBA:
 
 Run in DB02VPRD Equivilant 
 */
-USE Claims
+USE EchoOptimizerImages
 GO
 
 --===================================================================================================
@@ -38,148 +38,32 @@ PRINT '*** Remove PK/Clustered ***';
 PRINT '***************************';
 
 --************************************************
-PRINT 'Working on table [dbo].[AuditRecords] ...';
+PRINT 'Working on table [DocumentManagementReport].[Image] ...';
 
 IF EXISTS (   SELECT 1
               FROM   sys.objects
               WHERE  type_desc = 'PRIMARY_KEY_CONSTRAINT'
-                AND  parent_object_id = OBJECT_ID( N'dbo.AuditRecords' )
-				AND  name LIKE N'PK__AuditRec%'
+                AND  parent_object_id = OBJECT_ID( N'DocumentManagementReport.Image' )
+				AND  name = N'PK_Image'
           )
-BEGIN
-    IF ( SELECT @@SERVERNAME ) = 'DB02VPRD'
-    BEGIN
-        ALTER TABLE dbo.AuditRecords DROP CONSTRAINT PK__AuditRec__3214EC077F60ED59;
-        PRINT '- PK [PK__AuditRec__3214EC077F60ED59] Dropped';
-    END;
-    ELSE IF ( SELECT @@SERVERNAME ) = 'QA2-DB02'
-    BEGIN
-        ALTER TABLE dbo.AuditRecords DROP CONSTRAINT PK__AuditRec__3214EC077F60ED59;
-        PRINT '- PK [PK__AuditRec__3214EC077F60ED59] Dropped';
-    END;
-    ELSE IF ( SELECT @@SERVERNAME ) = 'DATATEAM4-DB02'
-    BEGIN
-        ALTER TABLE dbo.AuditRecords DROP CONSTRAINT PK__AuditRec__3214EC077F60ED59;
-        PRINT '- PK [PK__AuditRec__3214EC077F60ED59] Dropped';
-    END;
-END;
+	BEGIN
+        ALTER TABLE DocumentManagementReport.Image DROP CONSTRAINT PK_Image;
+        PRINT '- PK [PK_Image] Dropped';
+	END;
 
 --*****************************************************
-PRINT 'Working on table [dbo].[AuditRecordFields] ...';
+PRINT 'Working on table [dbo].[FastLaneDocs] ...';
 
 IF EXISTS (   SELECT 1
               FROM   sys.objects
               WHERE  type_desc = 'PRIMARY_KEY_CONSTRAINT'
-                AND  parent_object_id = OBJECT_ID( N'dbo.AuditRecordFields' )
-				AND  name LIKE N'PK__AuditRec%'
+                AND  parent_object_id = OBJECT_ID( N'dbo.FastLaneDocs' )
+				AND  name = N'PK_FastLaneDocs'
           )
-BEGIN
-    IF ( SELECT @@SERVERNAME ) = 'DB02VPRD'
-    BEGIN
-        ALTER TABLE dbo.AuditRecordFields DROP CONSTRAINT PK__AuditRec__3214EC0703317E3D;
-        PRINT '- PK [PK__AuditRec__3214EC0703317E3D] Dropped';
-    END;
-    ELSE IF ( SELECT @@SERVERNAME ) = 'QA2-DB02'
-    BEGIN
-        ALTER TABLE dbo.AuditRecordFields DROP CONSTRAINT PK__AuditRec__3214EC0703317E3D;
-        PRINT '- PK [PK__AuditRec__3214EC0703317E3D] Dropped';
-    END;
-    ELSE IF ( SELECT @@SERVERNAME ) = 'DATATEAM4-DB02'
-    BEGIN
-        ALTER TABLE dbo.AuditRecordFields DROP CONSTRAINT PK__AuditRec__3214EC0703317E3D;
-        PRINT '- PK [PK__AuditRec__3214EC0703317E3D] Dropped';
-    END;
-END;
-GO
-
-
---===================================================================================================
---[ADD PARTITION COLUMNs]
---===================================================================================================
-PRINT '*****************************';
-PRINT '*** Add Partition Columns ***';
-PRINT '*****************************';
-
---************************************************
-PRINT 'Working on table [dbo].[AuditRecords] ...';
-
-IF NOT EXISTS ( SELECT 1 FROM sys.columns WHERE name = N'CreatedDate' AND object_id = OBJECT_ID( N'dbo.AuditRecords' ))
-BEGIN
-    ALTER TABLE dbo.AuditRecords
-    ADD CreatedDate DATETIME NOT NULL CONSTRAINT DF_AuditRecords_CreatedDate DEFAULT GETDATE();
-	PRINT '- Column [CreatedDate] Created';
-END;
-
---*****************************************************
-PRINT 'Working on table [dbo].[AuditRecordFields] ...';
-
-IF NOT EXISTS ( SELECT 1 FROM sys.columns WHERE name = N'CreatedDate' AND object_id = OBJECT_ID( N'dbo.AuditRecordFields' ))
-BEGIN
-    ALTER TABLE dbo.AuditRecordFields
-    ADD CreatedDate DATETIME NOT NULL CONSTRAINT DF_AuditRecordFields_CreatedDate DEFAULT GETDATE();
-	PRINT '- Column [CreatedDate] Created';
-END;
-GO
-
-
---===================================================================================================
---[BACK FILL DATA]
---===================================================================================================
-PRINT '**********************';
-PRINT '*** Back Fill Data ***';
-PRINT '**********************';
-
---************************************************
-PRINT 'Working on table [dbo].[AuditRecords] ...';
-
-BEGIN TRY
-    BEGIN TRANSACTION;
-
-    UPDATE     ar
-    SET        ar.CreatedDate = c.ClaimSubmissionDate
-    FROM       dbo.AuditRecords AS ar
-    INNER JOIN dbo.Claims AS c
-            ON c.Id = ar.TableKey;
-
-    COMMIT TRANSACTION;
-	PRINT '- Back fill data Done';
-END TRY
-BEGIN CATCH
-    IF @@TRANCOUNT > 0
-    BEGIN
-        ROLLBACK TRANSACTION;
-    END;
-
-    THROW;
-END CATCH;
-
---*****************************************************
-PRINT 'Working on table [dbo].[AuditRecordFields] ...';
-
-BEGIN TRY
-    BEGIN TRANSACTION;
-
-    UPDATE     arf
-    SET        arf.CreatedDate = c.ClaimSubmissionDate
-    FROM       dbo.AuditRecordFields AS arf
-    INNER JOIN dbo.AuditRecords AS ar
-            ON ar.Id = arf.AuditRecordId
-    INNER JOIN dbo.Claims AS c
-            ON c.Id = ar.TableKey;
-
-    COMMIT TRANSACTION;
-	PRINT '- Back fill data Done';
-END TRY
-BEGIN CATCH
-    IF @@TRANCOUNT > 0
-    BEGIN
-        ROLLBACK TRANSACTION;
-    END;
-
-    THROW;
-END CATCH;
-GO
-
+	BEGIN
+        ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT PK_FastLaneDocs;
+        PRINT '- PK [PK_FastLaneDocs] Dropped';
+	END;
 
 --===================================================================================================
 --[CREATE CLUSTERED INDEX]
@@ -189,31 +73,32 @@ PRINT '*** Create Clustered Index ***';
 PRINT '******************************';
 
 --************************************************
-PRINT 'Working on table [dbo].[AuditRecords] ...';
+PRINT 'Working on table [DocumentManagementReport].[Image] ...';
 
-IF EXISTS ( SELECT 1 FROM sys.sysindexes WHERE name = 'CIX_AuditRecords_CreatedDate' )
+IF EXISTS ( SELECT 1 FROM sys.sysindexes WHERE name = 'CIX_DocumentManagementReport_Image_CreateDate' )
 BEGIN
-    DROP INDEX CIX_AuditRecords_CreatedDate ON dbo.AuditRecords;
-	PRINT '- Index [CIX_AuditRecords_CreatedDate] Dropped';
+    DROP INDEX CIX_DocumentManagementReport_Image_CreateDate ON DocumentManagementReport.Image;
+	PRINT '- Index [CIX_DocumentManagementReport_Image_CreateDate] Dropped';
 END;
 
-CREATE CLUSTERED INDEX CIX_AuditRecords_CreatedDate 
-ON dbo.AuditRecords ( CreatedDate ASC ) ON [PRIMARY];
-PRINT '- Index [CIX_AuditRecords_CreatedDate] Created';
+CREATE CLUSTERED INDEX CIX_DocumentManagementReport_Image_CreateDate
+ON DocumentManagementReport.Image ( CreateDate ASC )
+WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_1Year(CreateDate);
+PRINT '- Index [CIX_DocumentManagementReport_Image_CreateDate] Created';
 
 --*****************************************************
-PRINT 'Working on table [dbo].[AuditRecordFields] ...';
+PRINT 'Working on table [dbo].[FastLaneDocs] ...';
 
-IF EXISTS ( SELECT 1 FROM sys.sysindexes WHERE name = 'CIX_AuditRecordFields_CreatedDate' )
+IF EXISTS ( SELECT 1 FROM sys.sysindexes WHERE name = 'CIX_FastLaneDocs_SubmittedDate' )
 BEGIN
-    DROP INDEX CIX_AuditRecordFields_CreatedDate ON dbo.AuditRecordFields;
-	PRINT '- Index [CIX_AuditRecordFields_CreatedDate] Dropped';
+    DROP INDEX CIX_FastLaneDocs_SubmittedDate ON dbo.FastLaneDocs;
+	PRINT '- Index [CIX_FastLaneDocs_SubmittedDate] Dropped';
 END;
 
-CREATE CLUSTERED INDEX CIX_AuditRecordFields_CreatedDate 
-ON dbo.AuditRecordFields ( CreatedDate ASC ) ON [PRIMARY];
-PRINT '- Index [CIX_AuditRecordFields_CreatedDate] Created';
-GO
+CREATE CLUSTERED INDEX CIX_FastLaneDocs_SubmittedDate
+ON dbo.FastLaneDocs ( SubmittedDate ASC )
+WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_2Year(SubmittedDate);
+PRINT '- Index [CIX_FastLaneDocs_SubmittedDate] Created';
 
 
 --===================================================================================================
@@ -224,33 +109,33 @@ PRINT '*** Create PKs ***';
 PRINT '******************';
 
 --************************************************
-PRINT 'Working on table [dbo].[AuditRecords] ...';
+PRINT 'Working on table [DocumentManagementReport].[Image] ...';
 
-IF EXISTS ( SELECT 1 FROM sys.sysindexes WHERE name = 'PK_AuditRecords_Id_CreatedDate' )
+IF EXISTS ( SELECT 1 FROM sys.sysindexes WHERE name = 'PK_DocumentManagementReport_Image_ImageId_CreateDate' )
 BEGIN
-    ALTER TABLE dbo.AuditRecords DROP CONSTRAINT PK_AuditRecords_Id_CreatedDate;
-	PRINT '- PK [PK_AuditRecords_Id_CreatedDate] Dropped';
+    ALTER TABLE DocumentManagementReport.Image DROP CONSTRAINT PK_DocumentManagementReport_Image_ImageId_CreateDate;
+	PRINT '- PK [PK_DocumentManagementReport_Image_ImageId_CreateDate] Dropped';
 END;
 
-ALTER TABLE dbo.AuditRecords
-ADD CONSTRAINT PK_AuditRecords_Id_CreatedDate
-    PRIMARY KEY NONCLUSTERED ( Id, CreatedDate ) ON [PRIMARY];
-PRINT '- PK [PK_AuditRecords_Id_CreatedDate] Created';
+ALTER TABLE DocumentManagementReport.Image
+ADD CONSTRAINT PK_DocumentManagementReport_Image_ImageId_CreateDate
+    PRIMARY KEY NONCLUSTERED ( ImageId, CreateDate ) ON [PRIMARY];
+PRINT '- PK [PK_DocumentManagementReport_Image_ImageId_CreateDate] Created';
 
 --*****************************************************
-PRINT 'Working on table [dbo].[AuditRecordFields] ...';
+PRINT 'Working on table [dbo].[FastLaneDocs] ...';
 
-IF EXISTS ( SELECT 1 FROM sys.sysindexes WHERE name = 'PK_AuditRecordFields_Id_CreatedDate' )
+IF EXISTS ( SELECT 1 FROM sys.sysindexes WHERE name = 'PK_FastLaneDocs_FastLaneDocId_SubmittedDate' )
 BEGIN
-    ALTER TABLE dbo.AuditRecordFields DROP CONSTRAINT PK_AuditRecordFields_Id_CreatedDate;
-	PRINT '- PK [PK_AuditRecordFields_Id_CreatedDate] Dropped';
+    ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT PK_FastLaneDocs_FastLaneDocId_SubmittedDate;
+	PRINT '- PK [PK_FastLaneDocs_FastLaneDocId_SubmittedDate] Dropped';
 END;
 
-ALTER TABLE dbo.AuditRecordFields
-ADD CONSTRAINT PK_AuditRecordFields_Id_CreatedDate
-    PRIMARY KEY NONCLUSTERED ( Id, CreatedDate ) ON [PRIMARY];
-PRINT '- PK [PK_AuditRecordFields_Id_CreatedDate] Created';
-GO
+ALTER TABLE dbo.FastLaneDocs
+ADD CONSTRAINT PK_FastLaneDocs_FastLaneDocId_SubmittedDate
+    PRIMARY KEY NONCLUSTERED ( FastLaneDocId, SubmittedDate ) ON [PRIMARY];
+PRINT '- PK [PK_FastLaneDocs_FastLaneDocId_SubmittedDate] Created';
+
 
 
 --===================================================================================================
@@ -261,15 +146,15 @@ PRINT '*** Update Stats ***';
 PRINT '********************';
 
 --************************************************
-PRINT 'Working on table [dbo].[AuditRecords] ...';
+PRINT 'Working on table [DocumentManagementReport].[Image] ...';
 
-UPDATE STATISTICS dbo.AuditRecords;
+UPDATE STATISTICS DocumentManagementReport.Image;
 PRINT '- Statistics Updated';
 
 --*****************************************************
-PRINT 'Working on table [dbo].[AuditRecordFields] ...';
+PRINT 'Working on table [dbo].[FastLaneDocs] ...';
 
-UPDATE STATISTICS dbo.AuditRecordFields;
+UPDATE STATISTICS dbo.FastLaneDocs;
 PRINT '- Statistics Updated';
 GO
 
@@ -280,59 +165,3 @@ GO
 PRINT '***********************';
 PRINT '!!! Script COMPLETE !!!';
 PRINT '***********************';
-
-/* Time Taken = 
-********************
-!!! Script START !!!
-********************
-Running in Environment QA2-DB02...
-***************************
-*** Remove PK/Clustered ***
-***************************
-Working on table [dbo].[AuditRecords] ...
-- PK [PK__AuditRec__3214EC077F60ED59] Dropped
-Working on table [dbo].[AuditRecordFields] ...
-- PK [PK__AuditRec__3214EC0703317E3D] Dropped
-*****************************
-*** Add Partition Columns ***
-*****************************
-Working on table [dbo].[AuditRecords] ...
-- Column [CreatedDate] Created
-Working on table [dbo].[AuditRecordFields] ...
-- Column [CreatedDate] Created
-**********************
-*** Back Fill Data ***
-**********************
-Working on table [dbo].[AuditRecords] ...
-
-(62 row(s) affected)
-- Back fill data Done
-Working on table [dbo].[AuditRecordFields] ...
-
-(688 row(s) affected)
-- Back fill data Done
-******************************
-*** Create Clustered Index ***
-******************************
-Working on table [dbo].[AuditRecords] ...
-- Index [CIX_AuditRecords_CreatedDate] Created
-Working on table [dbo].[AuditRecordFields] ...
-- Index [CIX_AuditRecordFields_CreatedDate] Created
-******************
-*** Create PKs ***
-******************
-Working on table [dbo].[AuditRecords] ...
-- PK [PK_AuditRecords_Id_CreatedDate] Created
-Working on table [dbo].[AuditRecordFields] ...
-- PK [PK_AuditRecordFields_Id_CreatedDate] Created
-********************
-*** Update Stats ***
-********************
-Working on table [dbo].[AuditRecords] ...
-- Statistics Updated
-Working on table [dbo].[AuditRecordFields] ...
-- Statistics Updated
-***********************
-!!! Script COMPLETE !!!
-***********************
-*/

@@ -28,13 +28,13 @@ BEGIN
 	IF ( SELECT @@SERVERNAME ) = 'DB01VPRD'
 	BEGIN
 		--PROD --Note: N:\Data\EchoOptimizerImages.MDF --PRIMARY
-		ALTER DATABASE EchoOptimizerImages ADD FILE ( NAME = 'EchoOptimizerImages_Archive', FILENAME = N'N:\Data\EchoOptimizerImages_Archive.NDF', SIZE = 1GB, MAXSIZE = UNLIMITED, FILEGROWTH = 500MB )
+		ALTER DATABASE EchoOptimizerImages ADD FILE ( NAME = 'EchoOptimizerImages_Archive', FILENAME = N'J:\MSSQL\EchoOptimizerImages_Archive.NDF', SIZE = 1GB, MAXSIZE = UNLIMITED, FILEGROWTH = 500MB )
 		TO FILEGROUP EchoOptimizerImages_Archive;
 	END;
 	ELSE IF ( SELECT @@SERVERNAME ) = 'QA2-DB01'
 	BEGIN
 		--QA1 --Note: N:\Data\EchoOptimizerImages.MDF --PRIMARY
-		ALTER DATABASE EchoOptimizerImages ADD FILE ( NAME = 'EchoOptimizerImages_Archive', FILENAME = N'N:\Data\EchoOptimizerImages_Archive.NDF', SIZE = 1GB, MAXSIZE = UNLIMITED, FILEGROWTH = 500MB )
+		ALTER DATABASE EchoOptimizerImages ADD FILE ( NAME = 'EchoOptimizerImages_Archive', FILENAME = N'J:\MSSQL\EchoOptimizerImages_Archive.NDF', SIZE = 1GB, MAXSIZE = UNLIMITED, FILEGROWTH = 500MB )
 		TO FILEGROUP EchoOptimizerImages_Archive;
 	END;
 	ELSE IF ( SELECT @@SERVERNAME ) = 'DATATEAM4-DB01\DB01'

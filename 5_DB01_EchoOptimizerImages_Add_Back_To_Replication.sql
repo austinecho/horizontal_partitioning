@@ -91,7 +91,7 @@ ORDER BY   a.time DESC;
 --
 
 -- Re-Enable the publication
-USE Claims
+USE EchoOptimizerImages
 GO
 
 EXEC sys.sp_changepublication @publication = 'PublicationEchoOptImages', @property = 'immediate_sync', @value = 'true';

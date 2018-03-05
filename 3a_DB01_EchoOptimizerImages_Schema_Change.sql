@@ -117,7 +117,7 @@ IF EXISTS (   SELECT 1
               FROM   sys.objects
               WHERE  type_desc = 'PRIMARY_KEY_CONSTRAINT'
                 AND  parent_object_id = OBJECT_ID( N'dbo.FastLaneDocs' )
-				AND  name LIKE N'PK__AuditRec%'
+				AND  name = N'PK_FastLaneDocs'
           )
 	BEGIN
         ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT PK_FastLaneDocs;
@@ -152,7 +152,7 @@ IF EXISTS ( SELECT  1
 				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__7DCDAAA2;
                 PRINT '- DF [DF__FastLaneD__Submi__7DCDAAA2] Dropped';
             END;
-		ELSE IF (SELECT @@SERVERNAME) = 'QA'
+		ELSE IF (SELECT LEFT(@@SERVERNAME, 2)) = 'QA'
             BEGIN 
                 ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__164452B1;
                 PRINT '- DF [DF__FastLaneD__Submi__164452B1] Dropped';
@@ -261,7 +261,7 @@ PRINT 'Working on table [DocumentManagementReport].[Image] ...';
 ALTER TABLE DocumentManagementReport.Image WITH NOCHECK
 ADD CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID
     FOREIGN KEY ( LoadId )
-    REFERENCES DocumentManagementReport.Load ( LoadId ) ON DELETE CASCADE;
+    REFERENCES DocumentManagementReport.Load ( LoadId );
 PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID] Created';
 
 ALTER TABLE DocumentManagementReport.Image CHECK CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_Load_LoadID;
@@ -271,7 +271,7 @@ GO
 ALTER TABLE DocumentManagementReport.Image WITH NOCHECK
 ADD CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId
     FOREIGN KEY ( SourceFileId )
-    REFERENCES DocumentManagementReport.SourceFile ( LoadId ) ON DELETE CASCADE;
+    REFERENCES DocumentManagementReport.SourceFile ( LoadId );
 PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId] Created';
 
 ALTER TABLE DocumentManagementReport.Image CHECK CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId;

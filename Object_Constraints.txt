@@ -141,6 +141,9 @@ Clustered Index: CIX_FastLaneDocs_SubmittedDate
 	DF_FastLaneDocs_StatusCode
 	DF_FastLaneDocs_RecStatus
 	
+--====================================================================================================================
+--====================================================================================================================
+	
 **** DB02  ****
 
 ** DocumentManagementReport.Image **
