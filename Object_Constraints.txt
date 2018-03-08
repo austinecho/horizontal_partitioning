@@ -1,3 +1,7 @@
+NOTES:
+Change DB project
+Check if UQ index is needed for PKs (if it isn't identity)
+
 **** DB01  ****
 
 ** DocumentManagementReport.Image **
