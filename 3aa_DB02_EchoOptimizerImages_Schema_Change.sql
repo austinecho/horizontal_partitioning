@@ -31,9 +31,9 @@ IF ( SELECT @@SERVERNAME
         END;
 ELSE
     IF ( SELECT @@SERVERNAME
-       ) = 'QA2-DB02'
+       ) = 'QA4-DB02'
         BEGIN
-            PRINT 'Running in Environment QA2-DB02...';
+            PRINT 'Running in Environment QA4-DB02...';
             END;
     ELSE
         IF ( SELECT @@SERVERNAME

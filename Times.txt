@@ -1,0 +1,5 @@
+Script 1 - 0:09 seconds
+Script 2 - 0:04 seconds (DocumentManagementReport.Image doesn't exist in QA replication)
+Script 3 - 0:01 seconds
+Script 3a - 1:11 minutes
+Script 4 - 0:02 seconds

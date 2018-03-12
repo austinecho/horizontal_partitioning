@@ -154,13 +154,13 @@ IF EXISTS ( SELECT  1
             END;
 		ELSE IF (SELECT LEFT(@@SERVERNAME, 2)) = 'QA'
             BEGIN 
-                ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__164452B1;
+                ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__RecSt__31EC6D26;
                 PRINT '- DF [DF__FastLaneD__Submi__164452B1] Dropped';
 
-				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__164452B1;
+				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Statu__30F848ED;
                 PRINT '- DF [DF__FastLaneD__Submi__164452B1] Dropped';
 
-				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__164452B1;
+				ALTER TABLE dbo.FastLaneDocs DROP CONSTRAINT DF__FastLaneD__Submi__300424B4;
                 PRINT '- DF [DF__FastLaneD__Submi__164452B1] Dropped';
             END;
 		ELSE IF (SELECT @@SERVERNAME) = 'DATATEAM4-DB01\DB01'

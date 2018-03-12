@@ -12,7 +12,7 @@ USE EchoOptimizerImages;
 GO
 
 IF ( SELECT @@SERVERNAME ) = 'DB01VPRD' BEGIN PRINT 'Running in Environment DB01VPRD...'; END;
-ELSE IF ( SELECT @@SERVERNAME ) = 'QA2-DB01' BEGIN PRINT 'Running in Environment QA2-DB01...'; END;
+ELSE IF ( SELECT @@SERVERNAME ) = 'QA4-DB01' BEGIN PRINT 'Running in Environment QA4-DB01...'; END;
 ELSE IF ( SELECT @@SERVERNAME ) = 'DATATEAM4-DB01\DB01' BEGIN PRINT 'Running in Environment DATATEAM4-DB01\DB01...'; END;
 ELSE BEGIN PRINT 'ERROR: Server name not found. Process stopped.'; RETURN; END;
 
@@ -31,7 +31,7 @@ BEGIN
 		ALTER DATABASE EchoOptimizerImages ADD FILE ( NAME = 'EchoOptimizerImages_Archive', FILENAME = N'J:\MSSQL\EchoOptimizerImages_Archive.NDF', SIZE = 1GB, MAXSIZE = UNLIMITED, FILEGROWTH = 500MB )
 		TO FILEGROUP EchoOptimizerImages_Archive;
 	END;
-	ELSE IF ( SELECT @@SERVERNAME ) = 'QA2-DB01'
+	ELSE IF ( SELECT @@SERVERNAME ) = 'QA4-DB01'
 	BEGIN
 		--QA1 --Note: N:\Data\EchoOptimizerImages.MDF --PRIMARY
 		ALTER DATABASE EchoOptimizerImages ADD FILE ( NAME = 'EchoOptimizerImages_Archive', FILENAME = N'J:\MSSQL\EchoOptimizerImages_Archive.NDF', SIZE = 1GB, MAXSIZE = UNLIMITED, FILEGROWTH = 500MB )
@@ -112,13 +112,15 @@ GO
 
 --Verify: Check existance
 /*
-SELECT * FROM sys.partition_functions WHERE name = 'PF_EchoOptimizerImages_DATETIME_3Year';
+SELECT * FROM sys.partition_functions WHERE name = 'PF_EchoOptimizerImages_DATETIME_1Year';
+SELECT * FROM sys.partition_functions WHERE name = 'PF_EchoOptimizerImages_DATETIME_2Year';
 
-SELECT * FROM sys.partition_schemes WHERE name = 'PS_EchoOptimizerImages_DATETIME_3Year';
+SELECT * FROM sys.partition_schemes WHERE name = 'PS_EchoOptimizerImages_DATETIME_1Year';
+SELECT * FROM sys.partition_schemes WHERE name = 'PS_EchoOptimizerImages_DATETIME_2Year';
 */
 
 /*
-Running in Environment QA2-DB01...
+Running in Environment QA4-DB01...
 *** ADD FILE GROUP ***
 - Filegroup [EchoOptimizerImages_Archive] added
 *** ADD PARTITION FUNCTION ***
