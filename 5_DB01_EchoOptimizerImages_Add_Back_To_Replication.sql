@@ -41,7 +41,7 @@ EXEC sp_changepublication @publication = 'PublicationEchoOptImages', @property =
 
 -- article
 EXEC sp_addarticle @publication = N'PublicationEchoOptImages', @article = N'DocumentManagementReport.Image', @source_owner = N'DocumentManagementReport', @source_object = N'Image', @type = N'logbased', @description = N'', 
-@creation_script = N'', @pre_creation_cmd = N'truncate', @schema_option = 0x000000000803109F, @identityrangemanagementoption = N'manual', @destination_table = N'DocumentManagementReport.Image', @destination_owner = N'DocumentManagementReport', 
+@creation_script = N'', @pre_creation_cmd = N'truncate', @schema_option = 0x000000000803109F, @identityrangemanagementoption = N'manual', @destination_table = N'Image', @destination_owner = N'DocumentManagementReport', 
 @status = 24, @vertical_partition = N'false', @ins_cmd = N'CALL [sp_MSins_DocumentManagementReportImage]', @del_cmd = N'CALL [sp_MSdel_DocumentManagementReportImage]', @upd_cmd = N'SCALL [sp_MSupd_DocumentManagementReportImage]', @force_invalidate_snapshot = 1
 EXEC sp_addsubscription @publication = N'PublicationEchoOptImages', @subscriber = @subscriber, @destination_db = N'EchoOptimizerImages', @subscription_type = N'Push', @sync_type = N'automatic', @article = N'DocumentManagementReport.Image', @subscriber_type = 0, @reserved='Internal'
 
