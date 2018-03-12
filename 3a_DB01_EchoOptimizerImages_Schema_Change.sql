@@ -1,6 +1,6 @@
 /*
 DataTeam
-Claims Partitioning
+EchoOptimizerImages Partitioning
 
 DBA:
 -Monitor Transaction Logs and Blocking throughout process
@@ -208,7 +208,7 @@ END;
 
 CREATE CLUSTERED INDEX CIX_FastLaneDocs_SubmittedDate
 ON dbo.FastLaneDocs ( SubmittedDate ASC )
-WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_2Year(SubmittedDate);
+WITH ( SORT_IN_TEMPDB = ON) ON PS_EchoOptimizerImages_DATETIME_2Year(SubmittedDate);
 PRINT '- Index [CIX_FastLaneDocs_SubmittedDate] Created';
 
 --===================================================================================================
@@ -271,7 +271,7 @@ GO
 ALTER TABLE DocumentManagementReport.Image WITH NOCHECK
 ADD CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId
     FOREIGN KEY ( SourceFileId )
-    REFERENCES DocumentManagementReport.SourceFile ( LoadId );
+    REFERENCES DocumentManagementReport.SourceFile ( SourceFileId );
 PRINT '- FK [FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId] Created';
 
 ALTER TABLE DocumentManagementReport.Image CHECK CONSTRAINT FK_DocumentManagementReport_Image_DocumentManagementReport_SourceFile_SourceFileId;
@@ -292,10 +292,10 @@ ALTER TABLE dbo.FastLaneDocs ADD CONSTRAINT DF_FastLaneDocs_SubmittedDate DEFAUL
 PRINT '- DF [DF_FastLaneDocs_SubmittedDate] Added';
 
 ALTER TABLE dbo.FastLaneDocs ADD CONSTRAINT DF_FastLaneDocs_StatusCode DEFAULT 0 FOR StatusCode;
-PRINT '- DF [DF_FastLaneDocs_StatusCode] Dropped';
+PRINT '- DF [DF_FastLaneDocs_StatusCode] Added';
 
 ALTER TABLE dbo.FastLaneDocs ADD CONSTRAINT DF_FastLaneDocs_RecStatus DEFAULT 0 FOR RecStatus;
-PRINT '- DF [DF_FastLaneDocs_RecStatus] Dropped';
+PRINT '- DF [DF_FastLaneDocs_RecStatus] Added';
 
 --===================================================================================================
 --[UPDATE STATS]

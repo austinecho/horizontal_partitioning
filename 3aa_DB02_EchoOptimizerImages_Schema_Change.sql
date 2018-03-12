@@ -1,6 +1,6 @@
 /*
 DataTeam
-Claims Partitioning
+EcoOptimizerImages Partitioning
 
 DBA:
 -Monitor Transaction Logs and Blocking throughout process
@@ -118,8 +118,7 @@ IF EXISTS ( SELECT  1
     END;
 
 CREATE CLUSTERED INDEX CIX_DocumentManagementReport_Image_CreateDate
-ON DocumentManagementReport.Image ( CreateDate ASC )
-WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_1Year(CreateDate);
+ON DocumentManagementReport.Image ( CreateDate ASC ) ON [PRIMARY];
 PRINT '- Index [CIX_DocumentManagementReport_Image_CreateDate] Created';
 
 --*****************************************************
@@ -134,8 +133,7 @@ IF EXISTS ( SELECT  1
     END;
 
 CREATE CLUSTERED INDEX CIX_FastLaneDocs_SubmittedDate
-ON dbo.FastLaneDocs ( SubmittedDate ASC )
-WITH ( SORT_IN_TEMPDB = ON, ONLINE = ON ) ON PS_EchoOptimizerImages_DATETIME_2Year(SubmittedDate);
+ON dbo.FastLaneDocs ( SubmittedDate ASC ) ON [PRIMARY];
 PRINT '- Index [CIX_FastLaneDocs_SubmittedDate] Created';
 
 
