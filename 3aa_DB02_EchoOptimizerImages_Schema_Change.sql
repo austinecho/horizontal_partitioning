@@ -5,11 +5,11 @@ EcoOptimizerImages Partitioning
 DBA:
 -Monitor Transaction Logs and Blocking throughout process
 
-•	DROP PK w/if exist (Result Heap on all table in set)
-•	ADD Partition Column and Back Fill Data
-•	ADD Clustered
-•	ADD PK
-•	Update Stats
+â€¢	DROP PK w/if exist (Result Heap on all table in set)
+â€¢	ADD Partition Column and Back Fill Data
+â€¢	ADD Clustered
+â€¢	ADD PK
+â€¢	Update Stats
 	(The final state will be verified in a different step)
 
 Run in DB02VPRD Equivilant 
@@ -24,29 +24,7 @@ PRINT '********************';
 PRINT '!!! Script START !!!';
 PRINT '********************';
 
-IF ( SELECT @@SERVERNAME
-   ) = 'DB02VPRD'
-    BEGIN
-        PRINT 'Running in Environment DB02VPRD...';
-        END;
-ELSE
-    IF ( SELECT @@SERVERNAME
-       ) = 'QA4-DB02'
-        BEGIN
-            PRINT 'Running in Environment QA4-DB02...';
-            END;
-    ELSE
-        IF ( SELECT @@SERVERNAME
-           ) = 'DATATEAM4-DB02'
-            BEGIN
-                PRINT 'Running in Environment DATATEAM4-DB02...';
-                END;
-        ELSE
-            BEGIN
-                PRINT 'ERROR: Server name not found. Process stopped.';
-                    RETURN;
-                END;
-
+PRINT 'Running in Environment ' + @@SERVERNAME + '...';
 
 --===================================================================================================
 --[REMOVE ALL PKs]
