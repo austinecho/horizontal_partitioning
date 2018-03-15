@@ -5,15 +5,15 @@ EchoOptimizerImages Partitioning
 DBA:
 -Monitor Transaction Logs and Blocking throughout process
 
-•	DROP FK w/if exist
-•	DROP PK w/if exist (Result Heap on all table in set)
-•	ADD Partition Column and Back Fill Data
-•	ALTER NULL Column and ADD DF 
-•	ADD Clustered
-•	ADD PK
-•	ADD UX
-•	ADD FK
-•	Update Stats
+â€¢	DROP FK w/if exist
+â€¢	DROP PK w/if exist (Result Heap on all table in set)
+â€¢	ADD Partition Column and Back Fill Data
+â€¢	ALTER NULL Column and ADD DF 
+â€¢	ADD Clustered
+â€¢	ADD PK
+â€¢	ADD UX
+â€¢	ADD FK
+â€¢	Update Stats
 	(The final state will be verified in a different step)
 
 Run in DB01VPRD Equivilant 
@@ -28,11 +28,7 @@ PRINT '********************';
 PRINT '!!! Script START !!!';
 PRINT '********************';
 
-IF ( SELECT @@SERVERNAME ) = 'DB01VPRD' BEGIN PRINT 'Running in Environment DB01VPRD...'; END;
-ELSE IF ( SELECT @@SERVERNAME ) = 'QA2-DB01' BEGIN PRINT 'Running in Environment QA2-DB01...'; END;
-ELSE IF ( SELECT @@SERVERNAME ) = 'DATATEAM4-DB01\DB01' BEGIN PRINT 'Running in Environment DATATEAM4-DB01\DB01...'; END;
-ELSE BEGIN PRINT 'ERROR: Server name not found. Process stopped.'; RETURN; END;
-
+PRINT 'Running in Environment ' + @@SERVERNAME + '...';
 
 --===================================================================================================
 --[REMOVE ALL FK]
